@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Book } from '../book.model';
 import { BookRepository } from '../repository.model';
 
 @Component({
@@ -9,4 +10,14 @@ import { BookRepository } from '../repository.model';
 
 export class BookComponent {
     model:BookRepository=new BookRepository();
+    book:Book=this.model.getBookId(1);
+    name:string="Pedro";
+
+    onClick(e:any){
+        console.log(e.target);
+    }
+
+    onKeyUp(){
+        console.log(this.name)
+    }
 }
