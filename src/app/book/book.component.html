@@ -7,3 +7,68 @@
 <button class="btn btn-primary" (click)="onClick($event)">Boton</button>
 
 <input type="text" [(ngModel)]="name" (keyup.enter)="onKeyUp()">
+
+<br>
+<br>
+<!-- ngif -->
+<div *ngIf="model.getBooks().length > 0">Hay {{model.getBooks().length}} libros diponibles</div>
+
+<div *ngIf="model.getBooks().length == 0"> Lo sentimos no hay libros diponibles por el momento</div>
+<br>
+<!-- ngSwitch -->
+<div [ngSwitch]="model.getBooks().length">
+    <span *ngSwitchCase="0">No hay libros</span>
+    <span *ngSwitchCase="1">Hay 1 libro</span>
+    <span *ngSwitchDefault>Hay muchos libros</span>
+</div>
+<br>
+<!-- ngFor -->
+<ul>
+    <li *ngFor="let book of model.getBooks(); index as i;first as f">
+       {{i+1}} {{book.name}} - {{book.price}}
+       <span *ngIf="f">el es primer valor</span>
+    </li>
+</ul>
+<br>
+
+
+<!-- change detection -->
+<div>
+    <button class="btn btn-success" (click)="addBook()">agregar libro</button>
+    <ul>
+        <li *ngFor="let book of model.getBooks()">
+            {{book.name}}
+            <button class="btn btn-danger" (click)="deleteBook(book)">borrar</button>
+            <button class="btn btn-primary" (click)="updateBook(book)">actualizar</button>
+        </li>
+    </ul>
+</div>
+
+<!-- ngtemplate -->
+
+<ng-template #listadoLibros>
+    <ul>
+        <li *ngFor="let book of model.getBooks(); index as i;first as f">
+            {{i+1}} {{book.name}} - {{book.price}}
+           <span *ngIf="f">el es primer valor</span>
+        </li>
+    </ul>
+    <br>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="listadoLibros"></ng-template>
+
+<ng-template #listadoLibros let-books="books">
+    <ul>
+        <li *ngFor="let book of books; index as i;first as f">
+            {{i+1}} {{book.name}} - {{book.price}}
+           <span *ngIf="f">el es primer valor</span>
+        </li>
+    </ul>
+    <br>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="listadoLibros" [ngTemplateOutletContext]="{books:model.getBooks()}"></ng-template>
+
+<!-- custom directive -->
+
