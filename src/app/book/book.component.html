@@ -1,39 +1,39 @@
-<h1>Listado de libros</h1>
+<!-- <h1>Listado de libros</h1> -->
 <!-- forma 1 de mostrar informacion -->
-<div><h3 [textContent]="book.name"></h3></div>
+<!-- <div><h3 [textContent]="book.name"></h3></div> -->
 <!-- forma 2 de mostrar la informacion -->
-<div><h3>{{book.name}}</h3></div>
+<!-- <div><h3>{{book.name}}</h3></div>
 
 <button class="btn btn-primary" (click)="onClick($event)">Boton</button>
 
 <input type="text" [(ngModel)]="name" (keyup.enter)="onKeyUp()">
 
 <br>
-<br>
+<br> -->
 <!-- ngif -->
-<div *ngIf="model.getBooks().length > 0">Hay {{model.getBooks().length}} libros diponibles</div>
+<!-- <div *ngIf="model.getBooks().length > 0">Hay {{model.getBooks().length}} libros diponibles</div>
 
 <div *ngIf="model.getBooks().length == 0"> Lo sentimos no hay libros diponibles por el momento</div>
-<br>
+<br> -->
 <!-- ngSwitch -->
-<div [ngSwitch]="model.getBooks().length">
+<!-- <div [ngSwitch]="model.getBooks().length">
     <span *ngSwitchCase="0">No hay libros</span>
     <span *ngSwitchCase="1">Hay 1 libro</span>
     <span *ngSwitchDefault>Hay muchos libros</span>
 </div>
-<br>
+<br> -->
 <!-- ngFor -->
-<ul>
+<!-- <ul>
     <li *ngFor="let book of model.getBooks(); index as i;first as f">
        {{i+1}} {{book.name}} - {{book.price}}
        <span *ngIf="f">el es primer valor</span>
     </li>
 </ul>
-<br>
+<br> -->
 
 
 <!-- change detection -->
-<div>
+<!-- <div>
     <button class="btn btn-success" (click)="addBook()">agregar libro</button>
     <ul>
         <li *ngFor="let book of model.getBooks()">
@@ -42,11 +42,11 @@
             <button class="btn btn-primary" (click)="updateBook(book)">actualizar</button>
         </li>
     </ul>
-</div>
+</div> -->
 
 <!-- ngtemplate -->
 
-<ng-template #listadoLibros>
+<!-- <ng-template #listadoLibros>
     <ul>
         <li *ngFor="let book of model.getBooks(); index as i;first as f">
             {{i+1}} {{book.name}} - {{book.price}}
@@ -68,7 +68,57 @@
     <br>
 </ng-template>
 
-<ng-template [ngTemplateOutlet]="listadoLibros" [ngTemplateOutletContext]="{books:model.getBooks()}"></ng-template>
+<ng-template [ngTemplateOutlet]="listadoLibros" [ngTemplateOutletContext]="{books:model.getBooks()}"></ng-template> -->
 
+<!-- form -->
 
+<h1>Formulario de nuevo libro</h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <div class="m-4">
+                <div class="bg-primary text-white m-3 p-3">
+                    {{jsonBook}}
+                </div>
+                <div class="form-group">
+                    <label >Name</label>
+                    <input required minlength="3" [(ngModel)]="newBook.name" name="bName"  #name="ngModel" type="text" class="form-control">
+                </div>
+                <div class="alert alert-danger" *ngIf="!name.valid && name.touched">
+                    <p *ngIf="name.errors?.['required']">
+                        Name is required. Please fill in
+                    </p>
+                    <p *ngIf="name.errors?.['minlength']">
+                        Must add 3 characters min.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label >Autor</label>
+                    <input required maxlength="10" [(ngModel)]="newBook.writer" name="bWriter" #writer="ngModel" type="text" class="form-control">
+                </div>
+                <div class="alert alert-danger" *ngIf="!writer.valid && writer.touched">
+                    <p *ngIf="writer.errors?.['required']">
+                        Writer is required. Please fill in
+                    </p>
+                    <p *ngIf="writer.errors?.['maxlength']">
+                        Top of characters is 10.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label >Precio</label>
+                    <input required pattern="[0-9]" [(ngModel)]="newBook.price" name="bPrice" #price="ngModel" type="text" class="form-control">
+                </div>
+                <div class="alert alert-danger" *ngIf="!price.valid && price.touched">
+                    <p *ngIf="price.errors?.['required']">
+                        Price is required. Please fill in
+                    </p>
+                    <p *ngIf="price.errors?.['pattern']">
+                        Only numbers are allowed
+                    </p>
+                </div>
+                <button (click)="addBook(newBook)" class="btn btn-primary mt-2">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>

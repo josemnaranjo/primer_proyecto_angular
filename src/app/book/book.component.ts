@@ -10,11 +10,23 @@ import { BookRepository } from '../repository.model';
 
 export class BookComponent {
     model:BookRepository=new BookRepository();
+    
+    newBook:Book =new Book();
+    get jsonBook(){
+        return JSON.stringify(this.newBook)
+    }
+
+    addBook(b:Book){
+        console.log("El nuevo libro es "+ this.jsonBook)
+    }
+    
+    
+    
     book:Book=this.model.getBookId(1);
     name:string="Pedro";
-    addBook(){
-        this.model.addBook(new Book(4,"Crónica de una muerte anunciada","Gabriel Garcia Marquez",10000))
-    }
+    // addBook(){
+    //     this.model.addBook(new Book(4,"Crónica de una muerte anunciada","Gabriel Garcia Marquez",10000))
+    // }
     
     deleteBook(book:Book){
         this.model.deleteBook(book)
