@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { retry } from 'rxjs';
 import { Book } from '../book.model';
 import { BookRepository } from '../repository.model';
 
@@ -66,12 +67,16 @@ import { BookRepository } from '../repository.model';
 export class BookComponent{
 
     bookForm= new FormGroup({
-        name:new FormControl(''),
+        name:new FormControl('',[Validators.required,Validators.minLength(3)]),
     
-        writer:new FormControl(''),
+        writer:new FormControl('',Validators.required),
     
-        price:new FormControl(''),
+        price:new FormControl('',Validators.required),
     });
+
+    get name(){
+        return this.bookForm.get('name')
+    }
 
     onSubmit(){
         console.log(this.bookForm.value)
