@@ -1,6 +1,7 @@
 <h1>Http requests</h1>
 
 
+<div class="alert alert-danger" *ngIf="error">{{error.message}}</div>
 <input type="text" class="form-control m-3" (keyup.enter)="createPost(input)" #input>
 
 <ul class="list-group">
